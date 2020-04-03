@@ -25,18 +25,15 @@ class AnalysisEngine {
 			let distances = self.countDistances(for: population, targetIndividual: targetIndividual, wildType: wildType)
 			// Hamming pairs
 			let hammingStats = self.countStats(for: distances.hammingPairs.flatMap { $0 })
-			let hammingPairs = HammingDistancePairs(pairedDistances: distances.hammingPairs,
-													pairedDistancesEnumerated: hammingStats.1,
+			let hammingPairs = HammingDistancePairs(pairedDistancesEnumerated: hammingStats.1,
 													stats: hammingStats.0)
 			// Target Distances
 			let targetStats = self.countStats(for: distances.targetDistances)
-			let targetDistances = HammingDistanceTarget(distances: distances.targetDistances,
-														distancesEnumerated: targetStats.1,
+			let targetDistances = HammingDistanceTarget(distancesEnumerated: targetStats.1,
 														stats: targetStats.0)
 			// Wild Distances
 			let wildStats = self.countStats(for: distances.wildDistances)
 			let wildDistances = HammingDistanceWild(wildType: wildType,
-													distances: distances.wildDistances,
 													distancesEnumerated: wildStats.1,
 													stats: wildStats.0)
 			// polymorphicGenes
@@ -56,8 +53,7 @@ class AnalysisEngine {
 			let maxHealthDeviation =
 				abs(populationHealth.max()! - Double(targetIndividual.count))
 			// return
-			return AnalysisStats(individuals: population,
-								 hammingDistancePairs: hammingPairs,
+			return AnalysisStats(hammingDistancePairs: hammingPairs,
 								 hammingDistanceTarget: targetDistances,
 								 hammingDistanceWild: wildDistances,
 								 singlePolymorphicGenesPercentageAccornigToTarget: polymorphicCount.singleAccordingToTarget,
