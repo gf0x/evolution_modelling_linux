@@ -9,26 +9,29 @@
 import Foundation
 
 var pX = 0.0
+var healthComputing = HealthComputing.const
 // MARK: - Run all the experiments
 for length in lengthAndPopulationSizeSettings.keys {
 	let healthStandard = HealthStandardFactory.single.healthStandard(for: length)
-	for populationSize in lengthAndPopulationSizeSettings[length]! {
-		let factory = IndividualFactory(length: length, populationSize: populationSize)
-		for parentChoosing in parentChoosingSettings {
-			pX = getPx(forSelectionType: parentChoosing, length: length, populationSize: populationSize)
-			for generatingRule in populationGeneratingRulesSettings {
-				for pM in pmSettings {
-					for repetition in 1...repetitionSettings {
+	for computing in (length >= 100) ? HealthComputing.allCases : [.const] {
+		healthComputing = computing
+		for populationSize in lengthAndPopulationSizeSettings[length]! {
+			let factory = IndividualFactory(length: length, populationSize: populationSize)
+			for parentChoosing in parentChoosingSettings {
+				pX = getPx(forSelectionType: parentChoosing, length: length, populationSize: populationSize)
+				for generatingRule in populationGeneratingRulesSettings {
+					for pM in pmSettings {
+						for repetition in 1...repetitionSettings {
+							performExperiment(length: length,
+											  populationSize: populationSize,
+											  parentChoosing: parentChoosing,
+											  generatingRule: generatingRule,
+											  pM: pM,
+											  repetition: repetition,
+											  healthStandard: healthStandard,
+											  factory: factory)
 
-						performExperiment(length: length,
-										  populationSize: populationSize,
-										  parentChoosing: parentChoosing,
-										  generatingRule: generatingRule,
-										  pM: pM,
-										  repetition: repetition,
-										  healthStandard: healthStandard,
-										  factory: factory)
-
+						}
 					}
 				}
 			}
@@ -47,7 +50,7 @@ func performExperiment(
 	factory: IndividualFactory
 ) {
 	let experimentIdentifier =
-	"exp-\(length)-\(populationSize)-\(generatingRule.stringRepresentation)-\(parentChoosing.stringRepresentation)-\(pM.rawValue)-\(repetition)"
+	"init_\(generatingRule)__l_\(length)__n_\(populationSize)__f_\(healthComputing.rawValue)__\(parentChoosing.stringRepresentation)__pm_\(pM.rawValue)__run_\(repetition)"
 	print(experimentIdentifier)
 	var analysisStats = [AnalysisStats]()
 

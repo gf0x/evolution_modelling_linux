@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum HealthComputing: String, CaseIterable {
+	case const, complicated
+}
+
 class HealthStandardFactory {
 
 	// MARK: - Singleton
@@ -124,7 +128,7 @@ class HealthStandard {
 	}
 
 	func testFitness(individual: Individual) -> Double {
-		guard self.length >= 100 else { return Double(self.length) }
+		guard healthComputing == .complicated else { return Double(self.length) }
 		var patogenicCount = 0
 		for (index, symbol) in individual.enumerated() {
 			switch mutationType(of: symbol, at: index) {

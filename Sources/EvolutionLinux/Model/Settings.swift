@@ -34,4 +34,4 @@ let parentChoosingSettings: [ParentChoosing] = [
 ]
 
 let repetitionSettings = 5
-let numberOfIterationsSetting = 20//_000
+let numberOfIterationsSetting = 20_000
