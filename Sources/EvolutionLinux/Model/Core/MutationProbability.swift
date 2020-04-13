@@ -13,6 +13,7 @@ enum MutationProbability: String, CaseIterable {
 	case high
 	case low
 	case veryLow
+    case hundredTimes
 
 	var value: Double {
 		switch self {
@@ -20,6 +21,7 @@ enum MutationProbability: String, CaseIterable {
 		case .high: return 1.5 * pX // PX+0.5*PX
 		case .low: return 0.5 * pX // PX–0.5*PX
 		case .veryLow: return 0.1 * pX // PX/10
+        case .hundredTimes: return 100 * pX // 100 * pX
 		}
 	}
 }
