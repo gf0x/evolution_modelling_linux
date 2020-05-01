@@ -71,7 +71,6 @@ final class IndividualFactory {
 	// MARK: - Generating population according to distribution
 	private func population(accordingTo distribution: ContinuousDistribution) -> Population {
 		let hammingDistances = distribution.random(populationSize).map { Int(abs($0)) }
-		print(hammingDistances)
 		let uniDistribution = Distributions.Uniform(a: 0, b: Double(length) - 1)
 		var initialPopulation = newUberPopulation()
 		for (hammingDistance, individualIndex) in zip(hammingDistances, initialPopulation.indices) {

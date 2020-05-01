@@ -8,6 +8,7 @@
 
 import Foundation
 
+print("Запуск")
 var pX = 0.0
 var healthComputing = HealthComputing.const
 //let dispatchGroup = DispatchGroup()
@@ -70,10 +71,8 @@ func performExperiment(
 	formatter.dateFormat = "HH:mm:ss"
 	for iteration in (1...numberOfIterationsSetting) {
 
-        if iteration % 100 == 1 {
-            print("Експеримент \(numberOfExperiment) Ітерація: \(iteration) "
-                + "\(formatter.string(from: Date())) (\(Double(iteration) / Double(numberOfIterationsSetting) * 100)%)")
-        }
+        print("Експеримент \(numberOfExperiment) Ітерація: \(iteration) "
+            + "\(formatter.string(from: Date())) (\(Double(iteration) / Double(numberOfIterationsSetting) * 100)%)")
 
 		// MARK: - Evaluation (2.1)
 		var evaluatedPopulation = population.map { ($0, healthStandard.testFitness(individual: $0)) }
