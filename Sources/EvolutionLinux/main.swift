@@ -10,7 +10,7 @@ import Foundation
 
 var pX = 0.0
 var healthComputing = HealthComputing.const
-//let dispatchGroup = DispatchGroup()
+let dispatchGroup = DispatchGroup()
 var numberOfExperiment = 0
 // MARK: - Run all the experiments
 for length in lengthAndPopulationSizeSettings.keys {
@@ -26,7 +26,7 @@ for length in lengthAndPopulationSizeSettings.keys {
                         for repetition in 1...repetitionSettings {
                             numberOfExperiment += 1
                             let expNum = numberOfExperiment
-//                            DispatchQueue.global().async(group: dispatchGroup, qos: .userInteractive) {
+                            DispatchQueue.global().async(group: dispatchGroup, qos: .userInteractive) {
                                 performExperiment(numberOfExperiment: expNum,
                                                   length: length,
                                                   populationSize: populationSize,
@@ -36,7 +36,7 @@ for length in lengthAndPopulationSizeSettings.keys {
                                                   repetition: repetition,
                                                   healthStandard: healthStandard,
                                                   factory: factory)
-//                            }
+                            }
                         }
 					}
 				}
@@ -44,7 +44,7 @@ for length in lengthAndPopulationSizeSettings.keys {
 		}
 	}
 }
-//dispatchGroup.wait()
+dispatchGroup.wait()
 
 func performExperiment(
     numberOfExperiment: Int,
