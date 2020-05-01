@@ -10,6 +10,7 @@ import Foundation
 
 var pX = 0.0
 var healthComputing = HealthComputing.const
+let dispatchGroup = DispatchGroup()
 // MARK: - Run all the experiments
 for length in lengthAndPopulationSizeSettings.keys {
 	let healthStandard = HealthStandardFactory.single.healthStandard(for: length)
@@ -21,23 +22,25 @@ for length in lengthAndPopulationSizeSettings.keys {
 				pX = getPx(forSelectionType: parentChoosing, length: length, populationSize: populationSize)
 				for generatingRule in populationGeneratingRulesSettings {
 					for pM in pmSettings {
-						for repetition in 1...repetitionSettings {
-							performExperiment(length: length,
-											  populationSize: populationSize,
-											  parentChoosing: parentChoosing,
-											  generatingRule: generatingRule,
-											  pM: pM,
-											  repetition: repetition,
-											  healthStandard: healthStandard,
-											  factory: factory)
-
-						}
+                        for repetition in 1...repetitionSettings {
+                            DispatchQueue.global().async(group: dispatchGroup) {
+                                performExperiment(length: length,
+                                                  populationSize: populationSize,
+                                                  parentChoosing: parentChoosing,
+                                                  generatingRule: generatingRule,
+                                                  pM: pM,
+                                                  repetition: repetition,
+                                                  healthStandard: healthStandard,
+                                                  factory: factory)
+                            }
+                        }
 					}
 				}
 			}
 		}
 	}
 }
+dispatchGroup.wait()
 
 func performExperiment(
 	length: Int,
