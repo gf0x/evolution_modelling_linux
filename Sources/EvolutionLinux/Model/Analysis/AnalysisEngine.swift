@@ -90,11 +90,11 @@ class AnalysisEngine {
 		let mathExpectation = enumeratedDistances.reduce(0.0) { (accumulator, keyValue) in
 			accumulator + (Double(keyValue.key) * Double(keyValue.value) / Double(distances.count) )
 		}
-		let sigma = enumeratedDistances.reduce(0.0) { (accumulator, keyValue) in
+		let sigma = sqrt(enumeratedDistances.reduce(0.0) { (accumulator, keyValue) in
 			let percentage = Double(keyValue.value) / Double(distances.count)
 			let val = (pow(abs(Double(keyValue.key) - mathExpectation), 2) *  percentage)
 			return accumulator + val
-		}
+		})
 		let biggestFrequency = enumeratedDistances.values.max()!
 		return (Stats(mathExpectation: mathExpectation,
 					  sigma: sigma,
