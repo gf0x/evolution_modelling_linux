@@ -23,7 +23,7 @@ for length in lengthAndPopulationSizeSettings.keys {
 				for generatingRule in populationGeneratingRulesSettings {
 					for pM in pmSettings {
                         for repetition in 1...repetitionSettings {
-                            DispatchQueue.global().async(group: dispatchGroup) {
+                            DispatchQueue.global().async(group: dispatchGroup, qos: .userInteractive) {
                                 performExperiment(length: length,
                                                   populationSize: populationSize,
                                                   parentChoosing: parentChoosing,
