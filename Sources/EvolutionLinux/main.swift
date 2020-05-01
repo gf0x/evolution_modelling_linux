@@ -11,6 +11,7 @@ import Foundation
 var pX = 0.0
 var healthComputing = HealthComputing.const
 let dispatchGroup = DispatchGroup()
+var numberOfExperiment = 0
 // MARK: - Run all the experiments
 for length in lengthAndPopulationSizeSettings.keys {
 	let healthStandard = HealthStandardFactory.single.healthStandard(for: length)
@@ -23,8 +24,11 @@ for length in lengthAndPopulationSizeSettings.keys {
 				for generatingRule in populationGeneratingRulesSettings {
 					for pM in pmSettings {
                         for repetition in 1...repetitionSettings {
+                            numberOfExperiment += 1
+                            let expNum = numberOfExperiment
                             DispatchQueue.global().async(group: dispatchGroup, qos: .userInteractive) {
-                                performExperiment(length: length,
+                                performExperiment(numberOfExperiment: expNum,
+                                                  length: length,
                                                   populationSize: populationSize,
                                                   parentChoosing: parentChoosing,
                                                   generatingRule: generatingRule,
@@ -43,6 +47,7 @@ for length in lengthAndPopulationSizeSettings.keys {
 dispatchGroup.wait()
 
 func performExperiment(
+    numberOfExperiment: Int,
 	length: Int,
 	populationSize: Int,
 	parentChoosing: ParentChoosing,
@@ -60,12 +65,15 @@ func performExperiment(
 	var population = factory.newPopulation(generatingRule)
 
 	// MARK: - Main loop (2.0)
-	print("\r\nЗапуск\r\n")
+	print("\r\nЗапуск експеримента №\(numberOfExperiment)\r\n")
 	let formatter = DateFormatter()
 	formatter.dateFormat = "HH:mm:ss"
 	for iteration in (1...numberOfIterationsSetting) {
 
-		print("Ітерація: \(iteration) \(formatter.string(from: Date())) (\(Double(iteration) / Double(numberOfIterationsSetting) * 100)%)")
+        if iteration % 1_000 == 0 {
+            print("Експеримент \(numberOfExperiment) Ітерація: \(iteration) "
+                + "\(formatter.string(from: Date())) (\(Double(iteration) / Double(numberOfIterationsSetting) * 100)%)")
+        }
 
 		// MARK: - Evaluation (2.1)
 		var evaluatedPopulation = population.map { ($0, healthStandard.testFitness(individual: $0)) }
