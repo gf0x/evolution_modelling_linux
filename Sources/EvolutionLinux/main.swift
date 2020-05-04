@@ -15,35 +15,35 @@ var healthComputing = HealthComputing.const
 var numberOfExperiment = 0
 // MARK: - Run all the experiments
 for length in lengthAndPopulationSizeSettings.keys {
-	let healthStandard = HealthStandardFactory.single.healthStandard(for: length)
-	for computing in (length >= 100) ? HealthComputing.allCases : [.const] {
-		healthComputing = computing
-		for populationSize in lengthAndPopulationSizeSettings[length]! {
-			let factory = IndividualFactory(length: length, populationSize: populationSize)
-			for parentChoosing in parentChoosingSettings {
-				pX = getPx(forSelectionType: parentChoosing, length: length, populationSize: populationSize)
-				for generatingRule in populationGeneratingRulesSettings {
-					for pM in pmSettings {
-                        for repetition in 1...repetitionSettings {
-                            numberOfExperiment += 1
-                            let expNum = numberOfExperiment
-//                            DispatchQueue.global().async(group: dispatchGroup, qos: .userInteractive) {
-                                performExperiment(numberOfExperiment: expNum,
-                                                  length: length,
-                                                  populationSize: populationSize,
-                                                  parentChoosing: parentChoosing,
-                                                  generatingRule: generatingRule,
-                                                  pM: pM,
-                                                  repetition: repetition,
-                                                  healthStandard: healthStandard,
-                                                  factory: factory)
-//                            }
-                        }
-					}
-				}
-			}
-		}
-	}
+    let healthStandard = HealthStandardFactory.single.healthStandard(for: length)
+    //	for computing in (length >= 100) ? HealthComputing.allCases : [.const] {
+    healthComputing = HealthComputing.const// computing
+    for populationSize in lengthAndPopulationSizeSettings[length]! {
+        let factory = IndividualFactory(length: length, populationSize: populationSize)
+        for parentChoosing in parentChoosingSettings {
+            pX = getPx(forSelectionType: parentChoosing, length: length, populationSize: populationSize)
+            for generatingRule in populationGeneratingRulesSettings {
+                for pM in pmSettings {
+                    for repetition in 1...repetitionSettings {
+                        numberOfExperiment += 1
+                        let expNum = numberOfExperiment
+                        //                            DispatchQueue.global().async(group: dispatchGroup, qos: .userInteractive) {
+                        performExperiment(numberOfExperiment: expNum,
+                                          length: length,
+                                          populationSize: populationSize,
+                                          parentChoosing: parentChoosing,
+                                          generatingRule: generatingRule,
+                                          pM: pM,
+                                          repetition: repetition,
+                                          healthStandard: healthStandard,
+                                          factory: factory)
+                        //                            }
+                    }
+                }
+            }
+        }
+    }
+    //	}
 }
 //dispatchGroup.wait()
 
