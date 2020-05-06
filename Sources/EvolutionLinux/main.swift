@@ -17,7 +17,7 @@ var numberOfExperiment = 0
 for length in lengthAndPopulationSizeSettings.keys {
     let healthStandard = HealthStandardFactory.single.healthStandard(for: length)
     //	for computing in (length >= 100) ? HealthComputing.allCases : [.const] {
-    healthComputing = HealthComputing.const// computing
+    healthComputing = HealthComputing.complicated //computing
     for populationSize in lengthAndPopulationSizeSettings[length]! {
         let factory = IndividualFactory(length: length, populationSize: populationSize)
         for parentChoosing in parentChoosingSettings {

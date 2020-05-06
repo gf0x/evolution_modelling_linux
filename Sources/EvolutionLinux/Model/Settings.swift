@@ -30,7 +30,7 @@ let populationGeneratingRulesSettings: [IndividualFactory.GenerationRule] = [
 let parentChoosingSettings: [ParentChoosing] = [
 	Rws(),
 	TournamentSelection(t: 2),
-	TournamentSelection(t: 12)
+//	TournamentSelection(t: 12)
 ]
 
 let repetitionSettings = 1//5
