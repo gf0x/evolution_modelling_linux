@@ -21,7 +21,8 @@ for length in lengthAndPopulationSizeSettings.keys {
     for populationSize in lengthAndPopulationSizeSettings[length]! {
         let factory = IndividualFactory(length: length, populationSize: populationSize)
         for parentChoosing in parentChoosingSettings {
-            pX = getPx(forSelectionType: parentChoosing, length: length, populationSize: populationSize)
+            // not needed in this case
+//            pX = getPx(forSelectionType: parentChoosing, length: length, populationSize: populationSize)
             for generatingRule in populationGeneratingRulesSettings {
                 for pM in pmSettings {
                     for repetition in 1...repetitionSettings {
