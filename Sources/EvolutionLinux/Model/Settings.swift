@@ -23,7 +23,7 @@ let pmSettings: [MutationProbability] = [.customConst]// MutationProbability.all
 
 let populationGeneratingRulesSettings: [IndividualFactory.GenerationRule] = [
 	.uber,
-	.normal(1),
+//	.normal(1),
 //	.normal(3)
 ]
 
@@ -34,7 +34,7 @@ let parentChoosingSettings: [ParentChoosing] = [
 ]
 
 let healthComputingSettings: [HealthComputing] = [
-    .const,
+//    .const,
     .complicated
 ]
 
