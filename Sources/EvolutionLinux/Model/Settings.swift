@@ -22,7 +22,7 @@ let lengthAndPopulationSizeSettings = [
 let pmSettings: [MutationProbability] = [.customConst]// MutationProbability.allCases
 
 let populationGeneratingRulesSettings: [IndividualFactory.GenerationRule] = [
-	.uber,
+//	.uber,
 	.normal(1),
 //	.normal(3)
 ]
@@ -35,7 +35,7 @@ let parentChoosingSettings: [ParentChoosing] = [
 
 let healthComputingSettings: [HealthComputing] = [
     .const,
-    .complicated
+//    .complicated
 ]
 
 let repetitionSettings = 1//5
