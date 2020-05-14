@@ -12,14 +12,14 @@ let lengthAndPopulationSizeSettings = [
 //	10: [100, 200, 1_000],
 //	20: [100, 200, 1_000, 2_000],
 //	50: [100, 200, 1_000, 2_000],
-	100: [1_000],//, 200, 1_000, 2_000, 5_000, 10_000],
+	385: [300],//, 200, 1_000, 2_000, 5_000, 10_000],
 //	200: [1_000]//, 200, 1_000, 2_000, 5_000, 10_000],
 //	500: [100, 200, 1_000, 2_000, 5_000, 10_000],
 //	1_000: [100, /*200,*/ 1_000, 2_000, 5_000, 10_000, /*20_000, 80_000*/],
 //	2_000: [100, 200, 1_000, 2_000, 5_000, 10_000, /*20_000, 80_000*/]
 ]
 
-let pmSettings: [MutationProbability] = [.basic, .hundredTimes, .tenThousandTimes]// MutationProbability.allCases
+let pmSettings: [MutationProbability] = [.customConst]// MutationProbability.allCases
 
 let populationGeneratingRulesSettings: [IndividualFactory.GenerationRule] = [
 	.uber,
@@ -29,8 +29,13 @@ let populationGeneratingRulesSettings: [IndividualFactory.GenerationRule] = [
 
 let parentChoosingSettings: [ParentChoosing] = [
 	Rws(),
-	TournamentSelection(t: 2),
+//	TournamentSelection(t: 2),
 //	TournamentSelection(t: 12)
+]
+
+let healthComputingSettings: [HealthComputing] = [
+    .const,
+    .complicated
 ]
 
 let repetitionSettings = 1//5
